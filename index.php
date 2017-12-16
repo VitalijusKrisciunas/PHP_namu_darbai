@@ -51,7 +51,14 @@
 
         function sk_tob($sk) {
 
-            if ($sk == array_sum(sk_dal($sk))) {
+            $arr = sk_dal($sk);
+            $sum = null;
+
+            for ($i = 0; $i < count($arr); $i++) {
+                $sum += $arr[$i];
+            }
+
+            if ($sk == $sum) {
                 echo 'Skaicius: '.$sk.' yra tobulas'.'<br>';
             } 
         }
