@@ -39,20 +39,28 @@
         }
 
         echo '<br>'.'<br>';
-        echo 'Masyvas:'.'<br>'.'<br>';
+        echo 'Masyvas:'.'<br>';
 
-        $x = array(-10, 0, 2, 9, -5);
-        $j = count($x);
-        $n = count($x);
+        $arr2 = array(-10, 0, 2, 9, -5);
+        $j = count($arr2);
+        $n = count($arr2);
 
-        sort($x);
-       
-        for ($i = 0; $i < $n ; $i++) {
-            print_r($x);
+        sort($arr2);
+
+        echo '<br>';
+
+        for ($i = 0; $i <= $n ; $i++) {
+
+            foreach ($arr2 as $x) {
+                echo ' '.$x;
+            }
+
             $j--;
-            array_splice($x, $j, 1); 
+
+            array_splice($arr2, $j, 1); 
             
            echo '<br>';
+           
         }
       
     ?>
