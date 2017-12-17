@@ -22,17 +22,17 @@
             </tr>
             <tr>
                 <td>Obuolys</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/B9Ps8X"></td>
                 <td><input type="submit" value="Pirkti"></td>
             </tr>
             <tr>
                 <td>Apelsinas</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/pfZQZi"></td>
                 <td><input type="submit" value="Parduoti"></td>
              </tr>
              <tr>
                 <td>Kriause</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/P66pD4"></td>
                 <td><input type="submit" value="Pirkti"></td>
             </tr>
             <tr>
@@ -40,32 +40,32 @@
             </tr>
             <tr>
                 <td>Morka</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/ZnkE1G"></td>
                 <td><input type="submit" value="Pirkti"></td>
             </tr>
             <tr>
                 <td>Burokas</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/PxbT8h"></td>
                 <td><input type="submit" value="Parduoti"></td>
             </tr>
             <tr>
                 <td>Kopustas</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/DViIRP"></td>
                 <td><input type="submit" value="Pirkti"></td>
             </tr>
             <tr>
                 <td>Ridikas</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/iBTxdX"></td>
                 <td><input type="submit" value="Parduoti"></td>
             </tr>
             <tr>
                 <td>Zirnis</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/pjgheL"></td>
                 <td><input type="submit" value="Pirkti"></td>
             </tr>
             <tr>
                 <td>Melionas</td>
-                <td></td>
+                <td><img src="https://goo.gl/images/aYUD9h"></td>
                 <td><input type="submit" value="Parduoti"></td>
             </tr>
         </table>
