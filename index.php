@@ -26,7 +26,25 @@
         }
         echo '<br>'.'Antra uzduotis:'.'<br>';
         echo 'Daugiamacio masyvo didziausia stulpelio suma yra: '.$z.'<br>';
-        echo '<br>'.'Trecia uzduotis:';
+        echo '<br>'.'Trecia uzduotis:'.'<br>';
+
+        $a = [[1, 2, 3],[4, 5, 6],[7, 8, 9]];
+        $sum1 = 0;
+        $sum2 = 0;
+        $k = 0;
+        $l = count($a);
+
+        for ($j = 0; $j < count($a); $j++){
+            $sum1 += $a[$j][$k];
+            $k++;
+        }
+        echo 'Pirmos istrizaines elementu suma: '.$sum1.'<br>';
+
+        for ($j = 0; $j < count($a); $j++){
+            $l--;
+            $sum2 += $a[$j][$l];
+        }
+        echo 'Antros istrizaines elementu suma: '.$sum2;
     ?>
     </body>
 </html>
