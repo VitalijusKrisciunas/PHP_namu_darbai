@@ -6,38 +6,23 @@
     </head>
     <body>
     <?php
-       
-       $zmones = [
-        ['vardas' => 'Jonas', 'lytis' => 'V'],
-        ['vardas' => 'Ona', 'lytis' => 'M'],
-        ['vardas' => 'Petras', 'lytis' => 'V'],
-        ['vardas' => 'Marytė', 'lytis' => 'M'],
-        ['vardas' => 'Eglė', 'lytis' => 'M']
+
+        include_once 'functions.php';
+        include_once 'masyvai.php';
+        include_once 'obj.php';
+
+        $jonotrim = new Trimestras($jj);
+        $onostrim = new Trimestras($oo);
+
+        $mokiniai = [
+            new Mokinys ('Jonas', 'Jonaitis', $jonotrim),
+            new Mokinys ('Ona', 'Onaite', $onostrim),
         ];
 
-        var_dump($zmones);
+        var_dump($mokiniaimoki);
 
-        foreach($zmones as $value){
-        
-            if($value['lytis'] == 'V'){
-                $man = $value['vardas'];
-                      
-            } else {
-                continue;
-            }
 
-            foreach($zmones as $value){
-                if($value['lytis'] == 'M'){
-                    $woman = $value['vardas'];
-                    
-                    echo $man.' - '.$woman.'<br>';
-                }
-                
-            }
-            
-        }    
        
-
     ?>
     </body>
 </html>
