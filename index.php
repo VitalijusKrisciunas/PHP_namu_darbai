@@ -1,68 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Funkcijos</title>
+        <title>Poros</title>
         <meta charset="UTF-8">
     </head>
     <body>
     <?php
        
-       $a = array(5, 6, 10, 15);
-       $b = array(8,5, 3, 25);
-    
+       $zmones = [
+        ['vardas' => 'Jonas', 'lytis' => 'V'],
+        ['vardas' => 'Ona', 'lytis' => 'M'],
+        ['vardas' => 'Petras', 'lytis' => 'V'],
+        ['vardas' => 'Marytė', 'lytis' => 'M'],
+        ['vardas' => 'Eglė', 'lytis' => 'M']
+        ];
 
-        function masvid($x) {
-            $a = null;
-            $b = count($x);
-            foreach ($x as $elem) {
-                $a += $elem;
+        var_dump($zmones);
+
+        foreach($zmones as $value){
+        
+            if($value['lytis'] == 'V'){
+                $man = $value['vardas'];
+                      
+            } else {
+                continue;
             }
-            $a /= $b;
-            return $a;
-        }
 
-        echo 'Pirma uzduotis:'."<br>";
-        echo '<br>'.'Atsakymas yra: '.$c = masvid($a) - masvid($b);
-    ?>
-
-    <br>
-    <br>
-    <br>
-
-    <?php
-        echo 'Antra uzduotis:'."<br>"."<br>";
-
-        // Funkcija skaiciaus dalikliams rasti
-
-        function sk_dal($sk){
-
-            $arr = array();
-
-            for ($i = 1; $i < $sk; $i++) {
-                $b = $sk / $i;
-                if ($b == is_int($b)) {
-                    array_push($arr, $i);
+            foreach($zmones as $value){
+                if($value['lytis'] == 'M'){
+                    $woman = $value['vardas'];
+                    
+                    echo $man.' - '.$woman.'<br>';
                 }
+                
             }
-            return $arr;
-        }
+            
+        }    
+       
 
-        // Funkcija ar skaicius yra tobulas
-
-        function sk_tob($sk) {
-
-            if ($sk == array_sum(sk_dal($sk))) {
-                echo 'Skaicius: '.$sk.' yra tobulas'.'<br>';
-            } 
-        }
-
-        // Skaiciu nuo 1 iki 1000 ciklas
-
-        echo 'Tobulo skaiciuas nuo 1 iki 1000 paieska:'.'<br>'.'<br>';
-
-        for ($i = 1; $i <= 1000; $i++) {
-          sk_tob($i);
-        }
     ?>
     </body>
 </html>
