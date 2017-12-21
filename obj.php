@@ -2,10 +2,10 @@
 
 class Trimestras
 {
-    public $trimestras;
+    public $trim;
 
-     function __construct($trimestras){
-        $this->trimestras = $trimestras;
+     function __construct($trim){
+        $this->trim = $trim;
     }
 }
 
@@ -14,8 +14,8 @@ class Mokinys extends Trimestras
     public $vardas;
     public $pavarde;
 
-    function __construct ($vardas, $pavarde, $trimestras) {
-        parent::__construct ($trimestras);
+    function __construct ($vardas, $pavarde, $trim) {
+        parent::__construct ($trim);
         $this->vardas = $vardas;
         $this->pavarde = $pavarde;
     }
