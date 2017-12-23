@@ -22,8 +22,6 @@
                 <th style="border: 1px solid black">'.'Amzius'.'</th>
             </tr>';
         
-        var_dump($mokiniai);
-
                 foreach ($mokiniai as $obj) {
                     if ($obj->mokinioMetai() >= 18) {
                 
