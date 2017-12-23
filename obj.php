@@ -1,27 +1,28 @@
 <?php
 
-class Trimestras
-{
-    public $trim;
-
-     function __construct($trim){
-        $this->trim = $trim;
-    }
-}
-
-class Mokinys extends Trimestras
+class Mokinys
 {
     public $vardas;
     public $pavarde;
+    public $gimimoData;
+    public $skirtumas;
+    public $gd;
 
-    function __construct ($vardas, $pavarde, $trim) {
-        parent::__construct ($trim);
+    function __construct ($vardas, $pavarde, $gimimoData) {
         $this->vardas = $vardas;
         $this->pavarde = $pavarde;
+        $this->gimimoData = $gimimoData;
+
     }
 
     function pilnasVardas() {
-        echo $this->vardas. ' ' .$this->pavarde;
+        return $this->vardas. ' ' .$this->pavarde;
+    }
+
+    function mokinioMetai() {
+        $gd = new DateTime($this->gimimoData);
+        $skirtumas = date_diff($gd, date_create());
+        return $skirtumas->y;
     }
 }
 
