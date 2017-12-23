@@ -11,7 +11,7 @@
 
         $mokiniai = [
             new Mokinys ('Jonas', 'Jonaitis', '2000-01-10'),
-            new Mokinys ('Ona', 'Onaite', '1990-08-10'),
+            new Mokinys ('Ona', 'Onaite', '2001-08-10'),
             new Mokinys ('Petras', 'Petraitis', '1996-05-10'),
             new Mokinys ('Mare', 'Maraite', '1973-12-20'),
         ];
