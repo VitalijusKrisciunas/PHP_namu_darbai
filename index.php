@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Mokiniai</title>
+        <title>Automobiliai</title>
         <meta charset="UTF-8">
     </head>
     <body>
