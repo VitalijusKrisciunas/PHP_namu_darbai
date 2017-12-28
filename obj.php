@@ -11,8 +11,8 @@ class Radar
     public function __construct(
         DateTime $date, // data ir laikas
         string $number, // automobilio numeris
-        $distance, // nuvaziuotas atstumas metrais
-        $time) // sugaistas laikas sekundemis
+        float $distance, // nuvaziuotas atstumas metrais
+        float $time) // sugaistas laikas sekundemis
     {
         $this->date = $date;
         $this->number = $number;
