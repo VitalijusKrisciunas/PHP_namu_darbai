@@ -1,31 +1,28 @@
 <?php
 
-class Mokinys
+class Radar
 {
-    public $vardas;
-    public $pavarde;
-    public $gimimoData;
-    public $skirtumas;
-    public $gd;
+    public $date;
+    public $number;
+    public $distance;
+    public $time;
+    public $greitis;
 
-    function __construct ($vardas, $pavarde, $gimimoData) {
-        $this->vardas = $vardas;
-        $this->pavarde = $pavarde;
-        $this->gimimoData = $gimimoData;
+    public function __construct(
+        DateTime $date, // data ir laikas
+        string $number, // automobilio numeris
+        $distance, // nuvaziuotas atstumas metrais
+        $time) // sugaistas laikas sekundemis
+    {
+        $this->date = $date;
+        $this->number = $number;
+        $this->distance = $distance;
+        $this->time = $time;
 
     }
 
-    function pilnasVardas() {
-        return $this->vardas. ' ' .$this->pavarde;
-    }
-
-    function mokinioMetai() {
-        $gd = new DateTime($this->gimimoData);
-        $skirtumas = date_diff($gd, date_create());
-        return $skirtumas->y;
+    public function greitis()
+    {
+        return $greitis = ($this->distance / 1000) / ($this->time / 3600);
     }
 }
-
-
-
-    

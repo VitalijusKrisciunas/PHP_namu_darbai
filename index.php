@@ -9,30 +9,20 @@
 
         include_once 'obj.php';
 
-        $mokiniai = [
-            new Mokinys ('Jonas', 'Jonaitis', '2000-01-10'),
-            new Mokinys ('Ona', 'Onaite', '2001-08-10'),
-            new Mokinys ('Petras', 'Petraitis', '1996-05-10'),
-            new Mokinys ('Mare', 'Maraite', '1973-12-20'),
+        $objArray = [
+            new Radar(new DateTime('2017-01-01'), 'AAA111', 3600, 100),
+            new Radar(new DateTime('2017-02-02'), 'BBB222', 5600, 200),
+            new Radar(new DateTime('2017-03-03'), 'CCC333', 4600, 150),
+            new Radar(new DateTime('2017-04-04'), 'DDD444', 6600, 260),
         ];
 
-        echo '<table style="border: 1px solid black">';
-        echo '<tr>
-                <th>'.'Vardas Pavarde'.'</th>
-                <th style="border: 1px solid black">'.'Amzius'.'</th>
-            </tr>';
-        
-                foreach ($mokiniai as $obj) {
-                    if ($obj->mokinioMetai() >= 18) {
-                
-                        echo '<tr style="text-align:center;border: 1px solid black">
-                            <td>'.$obj->pilnasVardas().'</td>
-                            <td style="border: 1px solid black">'.$obj->mokinioMetai().'</td>
-                        </tr>';
-                    }
-                }
-        
-        echo '</table>';
+        usort($objArray, function($a, $b){
+            return ($a->greitis() < $b->greitis());
+        });
+
+        foreach ($objArray as $obj) {
+            echo 'Automobilis: '.$obj->number.' greitis: '.round($obj->greitis(), 1).' km/h'.'<br>';
+        }
 
     ?>
     </body>
