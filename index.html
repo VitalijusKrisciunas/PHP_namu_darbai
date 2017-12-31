@@ -10,12 +10,7 @@
             form {
                 text-align: center;
             }
-            label {
-                text-align: right;
-
-            }
-            input {
-               
+            form input {
                 margin: 2px auto 2px auto;
             }
         </style>
@@ -24,14 +19,16 @@
         <h4>Automobilio duomenu ivedimas</h4>
         <form action="rezult.php" method="post">
             <label>Greicio fiksavimo data ir laikas:</label>
-            <input name = "dateOfTime" type = "date"><br>
+            <input name = "dateOfTime" type = "text"><br>
             <label>Automobilio numeris:</label>
             <input name="numeris" type="text"><br>
             <label>Nuvaziuotas atstumas, metrais:</label>
             <input name="atstumas" type="number"><br>
             <label>Sugaistas laikas, sekundemis:</label>
-            <input name="laikas" type="number"><br>
+            <input name="laikas" type="number"><br><br>
             <input type="submit" value="Rezultatas">
         </form>
+        <br>
+        <br>
     </body>
-    </html>
+</html>
