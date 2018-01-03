@@ -29,6 +29,7 @@ echo '<table style="border: 1px solid black">';
     }
 echo '</table>';
 
+    // Filtro salyga.
     if ($_POST['filtras'] == ''){
         echo '<h4 style="color:red">Iveskite filtro salyga !</h4>';
         return;
@@ -47,7 +48,7 @@ echo '</table>';
             <th>'.'Greitis, km/h'.'</th>
         </tr>';
         foreach ($cars as $value) {
-            if (preg_match($filtras, $value->number)) {
+            if (preg_match($filtras, $value->number)) { // Isvedimas pagal filtra.
                 echo '<tr style="text-align:center;border: 1px solid black">
                     <td>'.$value->date.'</td>
                     <td style="border: 1px solid black">'.$value->number.'</td>
@@ -55,8 +56,6 @@ echo '</table>';
                     <td style="border: 1px solid black">'.$value->time.'</td>
                     <td>'.round($value->greitis(), 1).'</td>           
                     </tr>';
-            } else {
-                exit();
             }
         }
     echo '</table>';
