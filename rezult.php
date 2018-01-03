@@ -1,40 +1,42 @@
 <?php
 
-    $sk = 0;
-    
-    require 'index.html';
+    // Ivedimo formos ir klasiu uzkrovimas.
+    require_once 'index.html';
+    require_once 'obj.php';
 
-    if (isset($_COOKIE['eilnum'])) {
-        $sk = $_COOKIE['eilnum'];
+     // Paleidziama sesija.
+     session_start();
+
+    // Sukuriamas sesijos irasas.
+     if (isset($_SESSION['cars'])) {
+        $cars = $_SESSION['cars'];
     } else {
-        setcookie('eilnum', 0);
+        $cars = array();
     }
-    
-                 
+ 
+    // Siuntimas i session.            
     if ($_POST['dateOfTime'] == '' || $_POST['numeris'] == ''
         || $_POST['atstumas'] == '' || $_POST['laikas'] == ''){
 
         echo '<h4 style="color:red">Visi langeliai turi buti uzpildyti !</h4>';
-        return;
+        return; // Jeigu kuris nors langelis tuscias nepraleidzia.
 
     } else {
 
-        $greitis = round(($_POST['atstumas'] / 1000) / ($_POST['laikas'] / 3600), 1);
-        setcookie($sk.'[data]', $_POST['dateOfTime']);
-        setcookie($sk.'[numeris]', $_POST['numeris']);
-        setcookie($sk.'[atstumas]', $_POST['atstumas']);
-        setcookie($sk.'[laikas]', $_POST['laikas']);
-        setcookie($sk.'[greitis]', $greitis);
-        $sk++;
-        setcookie('eilnum', $sk);
+        $car = new Radar($_POST['dateOfTime'], $_POST['numeris'],
+                    $_POST['atstumas'], $_POST['laikas']);
+
+        array_push($cars, $car);
+        $_SESSION['cars'] = $cars;
     }
 
-    usort($_COOKIE, function($a, $b){
-        if (isset($a['greitis']) && isset($b['greitis'])) {
-            return ($a['greitis'] < $b['greitis']);
-        } 
+    // Rusiavimas pagal greiti.
+    usort($cars, function($a, $b){
+        return ($a->greitis() < $b->greitis());
     });
     
+    // Rezultato isvedimas i lentele.
+    echo 'Automobiliu baze:';
     echo '<table style="border: 1px solid black">';
         echo '<tr>
             <th>'.'Data ir laikas'.'</th>
@@ -43,22 +45,18 @@
             <th style="border: 1px solid black">'.'Laikas, s'.'</th>
             <th>'.'Greitis, km/h'.'</th>
         </tr>';
-        
-        foreach ($_COOKIE as $value) {
-            if (!isset($value['data']) && !isset($value['numeris'])
-            && !isset($value['atstumas']) && !isset($value['laikas'])
-            && !isset($value['greitis'])){
-                break;
-            }
+        foreach ($cars as $value) {
             echo '<tr style="text-align:center;border: 1px solid black">
-                <td>'.$value['data'].'</td>
-                <td style="border: 1px solid black">'.$value['numeris'].'</td>
-                <td>'.$value['atstumas'].'</td>
-                <td style="border: 1px solid black">'.$value['laikas'].'</td>
-                <td>'.$value['greitis'].'</td>           
+                <td>'.$value->date.'</td>
+                <td style="border: 1px solid black">'.$value->number.'</td>
+                <td>'.$value->distance.'</td>
+                <td style="border: 1px solid black">'.$value->time.'</td>
+                <td>'.round($value->greitis(), 1).'</td>           
                 </tr>';
         }
     echo '</table>';
-
 ?>
+
+
+
 
