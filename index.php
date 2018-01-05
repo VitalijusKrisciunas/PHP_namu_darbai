@@ -1,44 +1,53 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Automobiliai</title>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <!-- <?php
-           $servername = 'localhost';
-           $username = 'auto';
-           $password = 'LabaiSlaptas123';
-           $dbname = 'auto';
-       
-           $conn = new mysqli($servername, $username, $password, $dbname);
-       
-           if ($conn->connect_error) {
-               die('Connection failed: '.$conn->connect_error);
-           }
-       
-           $sql = "SELECT date, number, distance, time, 
-                   distance/time * 3.6 AS speed from radars 
-                   order by speed DESC Limit 10 offset 0";
-           $rezult = $conn->query($sql);
-       
-           if ($rezult->num_rows > 0) {
-               while($row = $rezult->fetch_assoc()) {
-       
-                   echo $row['date'].' '.$row['number'].' '.
-                   $row['distance'].' '.$row['time'].' '.round($row['speed'], 1).'<br>';
-               }
-           } else {
-                   echo '0 rezults';
-               }
-       
-           $conn->close(); 
-        ?> -->
-        <br>
-        <br>
-        <form action="atgal.php">
-            <input type="submit" value="Atgal">
-            <input type="submit"  value="Pirmyn" formaction="pirmyn.php">
-        </form>
-    </body>
-</html>
+<?php
+
+require_once 'db.php';
+//require_once 'lentele.php';
+
+$conn = connectDB();
+
+// irasu skaicius
+$per_page=10;
+
+// puslapio numerio gavimas
+if (isset($_GET['page'])) $page=($_GET['page']-1); else $page=0;
+
+// pirma LIMIT reiksme
+$start=abs($page*$per_page);
+
+// sudarome uzklausa
+// kintamaji $start naudojame kaip irasu numeratoriu.
+$q="SELECT *, distance/time * 3.6 AS speed FROM `radars` 
+ORDER BY speed DESC LIMIT $start,$per_page";
+$res=$conn->query($q);
+while($row=mysqli_fetch_array($res)) {
+  echo ++$start.". ".$row['number'].' '.round($row['speed'],1)."<br>\n";
+}
+
+// isvedame nuorodas i puslapius:
+$q="SELECT count(*) FROM `radars`";
+$res=$conn->query($q);
+$row=mysqli_fetch_row($res);
+$total_rows=$row[0];
+
+$num_pages=ceil($total_rows/$per_page);
+
+if ($page >= 1) {
+  $i = $_GET['page'] - 1;
+  echo '<a href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.'Atgal '.'</a>';
+}
+
+// puslapiu skaiciu isvedimas
+/* for($i=1;$i<=$num_pages;$i++) {
+  if ($i-1 == $page) {
+    echo $i." ";
+  } else {
+    echo '<a href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.$i."</a> ";
+  }
+} */
+
+if ($page < $num_pages - 1) {
+  $i = $_GET['page'] + 1;
+  echo '<a href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.' Pirmyn'.'</a>';
+}
+
+$conn->close();
