@@ -16,13 +16,14 @@
         $conn->query($sql);
     }
 
-    $row = [
+    /* $row = [
         'id'=>'',
         'date'=>'',
         'number'=>'',
         'distance'=>'',
         'time'=>''
-    ];
+    ]; */
+    $row = [];
 
     if (isset($_GET['edit'])) {
         $sql = "SELECT * FROM radars WHERE id = ". intval($_GET['edit']);
@@ -57,11 +58,16 @@
 ?>
 
 <form method='post'>
-    <input type='hidden' name='id' required value="<?= $row['id'] ?>">
-    Data: <input type='text' name='date' required value="<?= $row['date'] ?>"><br>
-    Numeris: <input type='text' name='number' required value="<?= $row['number'] ?>"><br>
-    Atstumas: <input type='number' name='distance' required value="<?= $row['distance'] ?>"><br>
-    Laikas: <input type='number' name='time' required value="<?= $row['time'] ?>">
+    <input type='hidden' name='id' required 
+    value="<?php if(!isset($row['id'])) $row['id']='';?><?= $row['id'] ?>">
+    Data: <input type='text' name='date' required 
+    value="<?php if(!isset($row['date'])) $row['date']='';?><?= $row['date'] ?>"><br>
+    Numeris: <input type='text' name='number' required 
+    value="<?php if(!isset($row['number'])) $row['number']='';?><?= $row['number'] ?>"><br>
+    Atstumas: <input type='number' name='distance' required 
+    value="<?php if(!isset($row['distance'])) $row['distance']='';?><?= $row['distance'] ?>"><br>
+    Laikas: <input type='number' name='time' required 
+    value="<?php if(!isset($row['time'])) $row['time']='';?><?= $row['time'] ?>">
     <button name="save" type="submit">Išsaugoti</button>
 </form>
 
@@ -76,32 +82,35 @@
 
     if ($result->num_rows > 0) {
         ?>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Numeris</th>
-                <th>Data</th>
-                <th>Atstumas (km)</th>
-                <th>Laikas (h)</th>
-                <th>Greitis (km/h)</th>
-                <th>Veiksmai</th>
-            </tr>
-        
-        <?php while($row = $result->fetch_assoc()): ?>
-            <tr>
-                <td><?= $row['id'] ?></td>
-                <td><?= $row['number'] ?></td>
-                <td><?= $row['date'] ?></td>
-                <td><?= $row['distance'] ?></td>
-                <td><?= $row['time'] ?></td>
-                <td><?= round($row['speed']) ?></td>
-                <td>
-                    <a href="?edit=<?= $row['id'] ?>">Taisyti</a>
-                    <a href="?delete=<?= $row['id'] ?>">Trinti</a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-        </table>
+        <form>
+            <table style="text-align:center;width:100%;">
+                <tr>
+                    <th>ID</th>
+                    <th>Numeris</th>
+                    <th>Data</th>
+                    <th>Atstumas (km)</th>
+                    <th>Laikas (h)</th>
+                    <th>Greitis (km/h)</th>
+                    <th>Veiksmai</th>
+                </tr>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= $row['id'] ?></td>
+                    <td><?= $row['number'] ?></td>
+                    <td><?= $row['date'] ?></td>
+                    <td><?= $row['distance'] ?></td>
+                    <td><?= $row['time'] ?></td>
+                    <td><?= round($row['speed']) ?></td>
+                    <td>
+                        <button type=“submit" name="edit" value="<?= $row['id'] ?>">
+                        Taisyti</button>
+                        <button type=“submit" name="delete" value="<?= $row['id'] ?>">
+                        Trinti</button>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </table>
+        </form>
         <?php
     } else {
         echo 'nėra duomenų';
