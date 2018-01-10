@@ -63,6 +63,19 @@
         }
     }
 
+    if (isset($_POST['auto'])){
+        require_once 'auto.php';
+    }
+
+    if (isset($_POST['menuo'])){
+        $date = $_POST['date'];
+        require_once 'menuo.php';
+    }
+
+    if (isset($_POST['metai'])){
+        $date = $_POST['date'];
+        require_once 'metai.php';
+    }
 ?>
 
 <form method='post'>
@@ -72,6 +85,11 @@
     Atstumas: <input type='number' name='distance' required value="<?= $row['distance'] ?>"><br>
     Laikas: <input type='number' name='time' required value="<?= $row['time'] ?>">
     <button name="save" type="submit">Išsaugoti</button>
+    <br><br>
+    <button name="auto" type="submit">Automobiliai</button>
+    <button name="menuo" type="submit">Menuo</button>
+    <button name="metai" type="submit">Metai</button>
+
 </form>
 
 <hr>
