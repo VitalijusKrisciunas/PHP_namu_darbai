@@ -69,11 +69,13 @@
 
     if (isset($_POST['menuo'])){
         $date = $_POST['date'];
+        setcookie("Data", $_POST['date']);
         require_once 'menuo.php';
     }
 
     if (isset($_POST['metai'])){
         $date = $_POST['date'];
+        setcookie("Data", $_POST['date']);
         require_once 'metai.php';
     }
 ?>

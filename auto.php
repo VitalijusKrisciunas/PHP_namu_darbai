@@ -57,7 +57,7 @@
 
             if ($page >= 1) {
             $i = $_GET['page'] - 1;
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?page='.$i.'">'.'Atgal '.'</a>';
+            echo '<a href="'.'auto.php'.'?page='.$i.'">'.'Atgal '.'</a>';
             }
 
             if ($page < $num_pages - 1) {
@@ -66,7 +66,7 @@
                 echo '<a href="'.'auto.php'.'?page='.$i.'">'.' Pirmyn'.'</a>';
             }
 
-            echo '<>'.'<a href="'.'index.php'.'?page='.$i.'">'.' Grizti i pradini puslapi'.'</a>';
+            echo '<>'.'<a href="index.php">'.'Grizti i pradini puslapi'.'</a>';
 
             $conn->close();
             die;
