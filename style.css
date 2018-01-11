@@ -1,0 +1,106 @@
+body {
+    background-color: lightgray;
+}
+
+/* formu <div> inner */
+.inner {
+    width: 99%;
+    /* max-width: 1060px; */
+    margin: 10px auto 10px auto;
+}
+
+/* forma cars */
+.cars {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    border: solid 2px black;
+    margin-right: 1%;
+    vertical-align: bottom;
+    background-color: rgb(203, 229, 54);
+
+}
+.cars fieldset {
+    border: solid 1px black;
+    background-color: rgb(203, 229, 54);
+    margin:5px 5px 0px 5px; 
+    padding:5px;
+}
+.cars legend {
+    font-weight: 600;
+}
+.carsleft {
+    display: inline-block;
+    margin-bottom: 2px;
+}
+.carsright {
+    display: inline-block;
+    margin-bottom: 2px;
+}
+.cars p {
+  text-align: right;
+}
+.cars label {
+    vertical-align: middle;
+    font-size: 16px;
+}
+.cars input {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+button {
+    font-size: 16px;
+    margin: 5px;
+}
+
+/* forma drivers */
+.drivers {
+    width: 340px;
+    display: inline-block;
+    border: solid 2px black;
+    text-align: center;
+    background-color:gold;
+}
+.drivers fieldset {
+    border: solid 1px black;
+    background-color: gold;
+    margin:5px 5px 5px 5px;
+    padding:5px;
+}
+.drivers legend {
+    font-weight: 600;
+}
+.drivers p {
+    text-align: right;
+}
+.drivers label {
+    vertical-align: middle;
+    font-size: 16px;
+}
+.drivers input {
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+/* lenteles */
+.tableform table {
+    border: 2px solid black;
+    text-align:center;
+    width:100%;
+}
+.tableform table th {
+    border: 1px solid black;
+    background-color: aqua;
+    line-height: 1.5;
+    font-weight: 600;
+}
+.tableform table td {
+    border: 1px solid black;
+}
+
+/* puslapiavimo forma */
+.pslform {
+    text-align: center;
+}
