@@ -16,7 +16,8 @@
 
             // masyvas
             $row = ['id'=>'', 'date'=>$date, 'number'=>'', 'distance'=>'', 'time'=>''];
-
+            $rowdrv = ['driverid'=>'', 'name'=>'', 'city'=>''];
+            $rowav = ['date'=>'', 'number'=>'', 'name'=>'', 'city'=>''];
             // uzkraunama forma
             require_once 'forma.php';
             require_once 'db.php';
@@ -46,6 +47,7 @@
                     <table>
                         <tr>
                             <th>Metai</th>
+                            <th>Menuo</th>
                             <th>Numeris</th>
                             <th>Kiekis</th>
                             <th>Min. greitis (km/h)</th>
@@ -55,6 +57,7 @@
                     <?php while($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td><?= $row['year'] ?></td>
+                            <td><?= $row['month'] ?></td>
                             <td><?= $row['number'] ?></td>
                             <td><?= $row['kiekis'] ?></td>
                             <td><?= round($row['ming']) ?></td>
@@ -85,7 +88,7 @@
                 <?php } ?>
                     <?php if($_GET['page'] <= $result->num_rows - 10){?>    
                         <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
-                <?php } $conn->close(); ?>
+                <?php } $conn->close(); die;?>
             </form>
     </body>
 </html>

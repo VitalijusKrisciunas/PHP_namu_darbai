@@ -6,6 +6,10 @@
     </head>
     <body>
         <?php
+            // masyvas
+            $row = ['id'=>'', 'date'=>'', 'number'=>'', 'distance'=>'', 'time'=>''];
+            $rowdrv = ['driverid'=>'', 'name'=>'', 'city'=>''];
+            $rowav = ['date'=>'', 'number'=>'', 'name'=>'', 'city'=>''];
             require_once 'forma.php';
             require_once 'db.php';
             $conn = connectDB();
@@ -61,7 +65,7 @@
                <?php } ?>
                <?php if($_GET['page'] <= $result->num_rows - 10){?>    
                    <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
-               <?php } $conn->close(); ?>
+               <?php } $conn->close(); die;?>
            </form>
     </body>
 </html>

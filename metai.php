@@ -15,7 +15,8 @@
             }
             // masyvas
             $row = ['id'=>'', 'date'=>$date, 'number'=>'', 'distance'=>'', 'time'=>''];
-
+            $rowdrv = ['driverid'=>'', 'name'=>'', 'city'=>''];
+            $rowav = ['date'=>'', 'number'=>'', 'name'=>'', 'city'=>''];
             // uzkraunama forma
             require_once 'forma.php';
             require_once 'db.php';
@@ -81,7 +82,7 @@
                 <?php } ?>
                 <?php if($_GET['page'] <= $result->num_rows - 10){?>    
                     <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
-                <?php } $conn->close(); ?>
+                <?php } $conn->close(); die;?>
             </form>
     </body>
 </html>

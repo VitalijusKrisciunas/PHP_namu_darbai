@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Automobiliai</title>
+        <title>Vairuotojai</title>
         <meta charset="UTF-8">
     </head>
     <body>
-
-        <?php           
+        <?php
             require_once 'db.php';
             // prisijungimas prie DB
             $conn = connectDB();
 
-            // masyvas
+            // masyvai
             $row = ['id'=>'', 'date'=>'', 'number'=>'', 'distance'=>'', 'time'=>''];
             $rowdrv = ['driverid'=>'', 'name'=>'', 'city'=>''];
             $rowav = ['date'=>'', 'number'=>'', 'name'=>'', 'city'=>''];
@@ -20,48 +19,44 @@
 
             if (isset($_GET['delete'])) {
                 $id = intval($_GET['delete']);
-                $sql = "DELETE FROM radars WHERE id = ?";
+                $sql = "DELETE FROM drivers WHERE driverid = ?";
                 $sqls = $conn->prepare($sql);
                 $sqls->bind_param("i", $id);
                 $sqls->execute();
             }
 
              if (isset($_GET['edit'])) {
-                $sql = "SELECT * FROM radars WHERE id = ". intval($_GET['edit']);
+                $sql = "SELECT * FROM drivers WHERE driverid = ". intval($_GET['edit']);
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();   
+                    $rowdrv = $result->fetch_assoc();   
                 }
             }
         
-            if (isset($_POST['carsave'])) {
+            if (isset($_POST['drvsave'])) {
                     // formos kintamieji
-                    $date = $_POST['date'];
-                    $number = $_POST['number'];
-                    $distance = $_POST['distance'];
-                    $time = $_POST['time'];
+                    $name = $_POST['name'];
+                    $city = $_POST['city'];
         
-                if (intval($_POST['id']) > 0) {
-                    $id = intval($_GET['edit']);
+                if (intval($_POST['driverid']) > 0) {
+                    $driverid = intval($_GET['edit']);
                     echo "update";
-                    $sql = "UPDATE radars 
-                    SET date = ?, number = ?, distance = ?, time = ? 
-                    WHERE id = ?";
+                    $sql = "UPDATE drivers SET name = ?, city = ? WHERE driverid = ?";
                     $sqls = $conn->prepare($sql);
-                    $sqls->bind_param("ssddi", $date, $number, $distance, $time, $id);
+                    $sqls->bind_param("ssi", $name, $city, $driverid);
                     $sqls->execute(); 
                     header("Location:$url");
                 } else {
                     echo "insert";
-                    $sql = "INSERT INTO radars(date, number, distance, time) VALUES
-                    (?,?,?,?)";
+                    $sql = "INSERT INTO drivers(name, city) VALUES(?,?)";
                     $sqls = $conn->prepare($sql);
-                    $sqls->bind_param("ssdd", $date, $number, $distance, $time);
+                    $sqls->bind_param("ss", $name, $city);
                     $sqls->execute(); 
                 }
             }
+
             // formos uzkrovimas
-            require_once 'forma.php';
+            require_once 'forma.php';         
             // puslapiavimo kintamieji
             if (isset($_GET['page'])) {
                 $offset = $_GET['page'];
@@ -70,36 +65,28 @@
                 $offset = 0;
              }
             // išvedame automobilius
-            $sql = "SELECT *, `distance`/`time`*3.6 as `greitis` 
-            FROM radars ORDER BY number LIMIT 10 OFFSET $offset";
+            $sql = "SELECT * FROM drivers ORDER BY name LIMIT 10 OFFSET $offset";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
         ?>
-
         <div class = "inner">
                 <form class = "tableform">
                     <table>
                         <tr>
-                            <th>Id</th>
-                            <th>Numeris</th>
-                            <th>Data</th>
-                            <th>Atstumas (m)</th>
-                            <th>Laikas (s)</th>
-                            <th>Greitis (km/h)</th>
+                            <th>DriverId</th>
+                            <th>Vardas, Pavarde</th>
+                            <th>Miestas</th>
                             <th>Veiksmai</th>
                         </tr>
-                    <?php while($row = $result->fetch_assoc()): ?>
+                    <?php while($rowdrv = $result->fetch_assoc()): ?>
                         <tr>
-                            <td><?= $row['id'] ?></td>
-                            <td><?= $row['number'] ?></td>
-                            <td><?= $row['date'] ?></td>
-                            <td><?= $row['distance'] ?></td>
-                            <td><?= $row['time'] ?></td>
-                            <td><?= round($row['greitis']) ?></td>
+                            <td><?= $rowdrv['driverid'] ?></td>
+                            <td><?= $rowdrv['name'] ?></td>
+                            <td><?= $rowdrv['city'] ?></td>
                             <td>
-                                <button type=“submit" name="edit" value="<?= $row['id'] ?>">
+                                <button type=“submit" name="edit" value="<?= $rowdrv['driverid'] ?>">
                                 Taisyti</button>
-                                <button type=“submit" name="delete" value="<?= $row['id'] ?>">
+                                <button type=“submit" name="delete" value="<?= $rowdrv['driverid'] ?>">
                                 Trinti</button>
                             </td>
                         </tr>
@@ -114,13 +101,13 @@
         ?>
         <form class="pslform">
             <?php
-               $sql = "SELECT id FROM radars";
+               $sql = "SELECT * FROM drivers";
                 $result = $conn->query($sql);
                 if($_GET['page'] > 0){
             ?>
                 <button type="submit" name="page" value="<?=$offset - 10?>">Atgal</button>
             <?php } ?>
-            <?php if($_GET['page'] <= $result->num_rows - 10){?>    
+            <?php if($_GET['page'] < $result->num_rows - 10){?>    
                 <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
             <?php } $conn->close(); die;?>
         </form>
