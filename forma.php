@@ -47,7 +47,7 @@
                 <button formaction="menuo.php" type="submit" name="menuo">Menesiai</button>
                 <button formaction="index.php" type="submit">Automobiliai</button>                
             </form>
-            <form class="drivers" method="post">
+            <form class="drivers" action="driver.php" method="post">
                 <fieldset>
                     <legend>Vairuotojai</legend>
                     <input type="hidden" name="driverid" value="<?= $rowdrv['driverid'] ?>">
@@ -60,7 +60,7 @@
                         <input type="text" name="city" placeholder="Balbieriskis" required value="<?= $rowdrv['city'] ?>">
                     </p><br>
                     <button type="submit" name="drvsave">Issaugoti</button>
-                    <button type="submit" formaction="driver.php">Vairuotojai</button>
+                    <button>Vairuotojai</button>
                 </fieldset> 
             </form>
             <form class="relate" action="relate.php" method="post">
