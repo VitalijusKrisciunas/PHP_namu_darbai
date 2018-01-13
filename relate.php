@@ -1,3 +1,4 @@
+<!-- Susiejimo programa -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,6 +7,7 @@
     </head>
     <body>
         <?php
+            require_once 'pagination.php';
             require_once 'db.php';
             // prisijungimas prie DB
             $conn = connectDB();
@@ -29,20 +31,21 @@
                     $sqls->execute();
               }
             }
-       
             // puslapiavimo kintamieji
+            $per_page = 10;
             if (isset($_GET['page'])) {
-                $offset = $_GET['page'];
-             } else {
+                $pagenum = $_GET['page'];
+            } else {
                 $_GET['page'] = 0;
-                $offset = 0;
-             }
+                $pagenum = 0;             
+            }
+            $offset = $pagenum * $per_page;
             // formos uzkrovimas
             require_once 'forma.php';
             // išvedame automobilius
             $sql = "SELECT date, number, b.name, b.city FROM radars a 
             INNER JOIN drivers b ON a.driverid = b.driverid GROUP BY number
-            LIMIT 10 OFFSET $offset";
+            LIMIT $per_page OFFSET $offset";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
         ?>
@@ -70,19 +73,10 @@
             } else {
                 echo 'Nėra duomenų';
             }
+            $sql = "SELECT date, number, b.name, b.city FROM radars a 
+            INNER JOIN drivers b ON a.driverid = b.driverid GROUP BY number";
+            pagination($per_page, $pagenum, $sql, $conn);
+            $conn->close();
         ?>
-        <form class="pslform">
-            <?php
-               $sql = "SELECT date, number, b.name, b.city FROM radars a 
-               INNER JOIN drivers b ON a.driverid = b.driverid";
-                $result = $conn->query($sql);
-                if($_GET['page'] > 0){
-            ?>
-                <button type="submit" name="page" value="<?=$offset - 10?>">Atgal</button>
-            <?php } ?>
-            <?php if($_GET['page'] < $result->num_rows - 10){?>    
-                <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
-            <?php } $conn->close(); die;?>
-        </form>
     </body>
 </html>

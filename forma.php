@@ -21,23 +21,23 @@
                         <p>
                             <label>Data ir laikas:</label>
                             <input type="datetime" name="date" 
-                            placeholder="2017-01-01 12:00:00" required value="<?= $row['date'] ?>">
+                            placeholder="2017-01-01 12:00:00" value="<?= $row['date'] ?>">
                         </p>
                         <p>
                             <label>Numeris:</label>
                             <input type="text" name="number" placeholder="pvz:XXX000"
-                            required value="<?= $row['number'] ?>">
+                            value="<?= $row['number'] ?>">
                         </p>
                     </div>
                         <div class="carsright">
                         <p>
                             <label>Atstumas (m):</label>
                             <input type="number" name="distance" placeholder="5000"
-                            required value="<?= $row['distance'] ?>">
+                            value="<?= $row['distance'] ?>">
                         </p>
                         <p>
                             <label>Laikas (s):</label>
-                            <input type="number" name="time" placeholder="300" required value="<?= $row['time'] ?>">
+                            <input type="number" name="time" placeholder="300" value="<?= $row['time'] ?>">
                         </p>
                     </div><br>
                     <button type="submit" name="carsave">Issaugoti</button>
@@ -53,11 +53,11 @@
                     <input type="hidden" name="driverid" value="<?= $rowdrv['driverid'] ?>">
                     <p>
                         <label>Vardas, Pavarde:</label>
-                        <input type="text" name="name" placeholder="Jonas Jonaitis" required value="<?= $rowdrv['name'] ?>">
+                        <input type="text" name="name" placeholder="Jonas Jonaitis" value="<?= $rowdrv['name'] ?>">
                     </p><br>
                     <p>
                         <label>Miestas:</label>
-                        <input type="text" name="city" placeholder="Balbieriskis" required value="<?= $rowdrv['city'] ?>">
+                        <input type="text" name="city" placeholder="Balbieriskis" value="<?= $rowdrv['city'] ?>">
                     </p><br>
                     <button type="submit" name="drvsave">Issaugoti</button>
                     <button>Vairuotojai</button>

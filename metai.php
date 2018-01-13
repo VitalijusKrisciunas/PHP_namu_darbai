@@ -6,6 +6,7 @@
     </head>
     <body>
         <?php
+            require_once 'pagination.php';
             // issaugoma data        
             if (isset($_POST['date'])){
                 $date=$_POST['date'];
@@ -23,17 +24,19 @@
             $conn = connectDB();
 
             // puslapiavimo kintamieji
+            $per_page = 10;
             if (isset($_GET['page'])) {
-                $offset = $_GET['page'];
-            } else {
+                $pagenum = $_GET['page'];
+             } else {
                 $_GET['page'] = 0;
-                $offset = 0;
-            }
+                $pagenum = 0;             
+             }
+             $offset = $pagenum * $per_page;
 
             $sql = "SELECT YEAR(date) as year, number, COUNT(*) AS kiekis, 
             MIN(distance/time*3.6) AS ming, AVG(distance/time*3.6) AS avgg,
             MAX(distance/time*3.6) AS maxg FROM radars GROUP BY number 
-            HAVING year = YEAR('$date') LIMIT 10 OFFSET $offset";
+            HAVING year = YEAR('$date') LIMIT $per_page OFFSET $offset";
 
             $result = $conn->query($sql);
 
@@ -67,22 +70,12 @@
                 } else {
                     echo 'Nėra duomenų';
                 }
+                $sql = "SELECT YEAR(date) as year, number, COUNT(*) AS kiekis, 
+                MIN(distance/time*3.6) AS ming, AVG(distance/time*3.6) AS avgg,
+                MAX(distance/time*3.6) AS maxg FROM radars GROUP BY number 
+                HAVING year = YEAR('$date')";
+                pagination($per_page, $pagenum, $sql, $conn);
+                $conn->close();
             ?>
-            <form class="pslform">
-                <?php
-                    // SQL uzklausa irasu kiekiui gauti
-                    $sql = "SELECT YEAR(date) as year, number, COUNT(*) AS kiekis, 
-                    MIN(distance/time*3.6) AS ming, AVG(distance/time*3.6) AS avgg,
-                    MAX(distance/time*3.6) AS maxg FROM radars GROUP BY number 
-                    HAVING year = YEAR('$date')";
-                    
-                    if($_GET['page'] > 0){
-                ?>
-                    <button type="submit" name="page" value="<?=$offset - 10?>">Atgal</button>
-                <?php } ?>
-                <?php if($_GET['page'] <= $result->num_rows - 10){?>    
-                    <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
-                <?php } $conn->close(); die;?>
-            </form>
     </body>
 </html>

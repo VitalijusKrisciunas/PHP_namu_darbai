@@ -63,7 +63,7 @@
                ?>
                    <button type="submit" name="page" value="<?=$offset - 10?>">Atgal</button>
                <?php } ?>
-               <?php if($_GET['page'] <= $result->num_rows - 10){?>    
+               <?php if($_GET['page'] < $result->num_rows - 10){?>    
                    <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
                <?php } $conn->close(); die;?>
            </form>

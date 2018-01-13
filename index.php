@@ -6,7 +6,8 @@
     </head>
     <body>
 
-        <?php           
+        <?php 
+            require_once 'pagination.php';          
             require_once 'db.php';
             // prisijungimas prie DB
             $conn = connectDB();
@@ -63,15 +64,17 @@
             // formos uzkrovimas
             require_once 'forma.php';
             // puslapiavimo kintamieji
+            $per_page = 10;
             if (isset($_GET['page'])) {
-                $offset = $_GET['page'];
+                $pagenum = $_GET['page'];
              } else {
                 $_GET['page'] = 0;
-                $offset = 0;
+                $pagenum = 0;             
              }
+             $offset = $pagenum * $per_page;
             // išvedame automobilius
             $sql = "SELECT *, `distance`/`time`*3.6 as `greitis` 
-            FROM radars ORDER BY number LIMIT 10 OFFSET $offset";
+            FROM radars ORDER BY number LIMIT $per_page OFFSET $offset";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
         ?>
@@ -111,18 +114,10 @@
             } else {
                 echo 'Nėra duomenų';
             }
-        ?>
-        <form class="pslform">
-            <?php
-               $sql = "SELECT id FROM radars";
-                $result = $conn->query($sql);
-                if($_GET['page'] > 0){
-            ?>
-                <button type="submit" name="page" value="<?=$offset - 10?>">Atgal</button>
-            <?php } ?>
-            <?php if($_GET['page'] <= $result->num_rows - 10){?>    
-                <button type="submit" name="page" value="<?=$offset + 10?>">Pirmyn</button>
-            <?php } $conn->close(); die;?>
-        </form>
+
+            $sql = "select * from radars";
+            pagination($per_page, $pagenum, $sql, $conn);
+            $conn->close();
+        ?>   
     </body>
 </html>
