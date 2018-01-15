@@ -15,12 +15,19 @@
             $conn = connectDB();
 
             // puslapiavimo kintamieji
+            $per_page = 10;
             if (isset($_GET['page'])) {
-                $offset = $_GET['page'];
-             } else {
-                $_GET['page'] = 0;
-                $offset = 0;
-             }
+                $pagenum = $_GET['page'];
+            } else {
+                $_GET['page'] = 1;
+                $pagenum = 0;             
+            }
+            if ($pagenum == 0){
+                $offset = $pagenum * $per_page;
+                $pagenum = 1;
+            } else {
+                $offset = ($pagenum * $per_page) - $per_page;
+            }
 
             // SQL uzklausa
             $sql = "SELECT number, COUNT(*) AS kiekis, 

@@ -45,7 +45,7 @@
                 <button formaction="auto.php" type="submit" name="auto">Maks. greitis</button>
                 <button formaction="metai.php" type="submit" name="metai">Metai</button>
                 <button formaction="menuo.php" type="submit" name="menuo">Menesiai</button>
-                <button formaction="index.php" type="submit">Automobiliai</button>                
+                <button formaction="index.php<?='?page=1'?>" type="submit">Automobiliai</button>                
             </form>
             <form class="drivers" action="driver.php" method="post">
                 <fieldset>

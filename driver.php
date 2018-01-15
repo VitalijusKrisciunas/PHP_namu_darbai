@@ -62,11 +62,16 @@
             $per_page = 10;
             if (isset($_GET['page'])) {
                 $pagenum = $_GET['page'];
-             } else {
-                $_GET['page'] = 0;
+            } else {
+                $_GET['page'] = 1;
                 $pagenum = 0;             
-             }
-             $offset = $pagenum * $per_page;
+            }
+            if ($pagenum == 0){
+                $offset = $pagenum * $per_page;
+                $pagenum = 1;
+            } else {
+                $offset = ($pagenum * $per_page) - $per_page;
+            }
             // išvedame automobilius
             $sql = "SELECT * FROM drivers ORDER BY name LIMIT $per_page OFFSET $offset";
             $result = $conn->query($sql);

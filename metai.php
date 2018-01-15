@@ -27,11 +27,16 @@
             $per_page = 10;
             if (isset($_GET['page'])) {
                 $pagenum = $_GET['page'];
-             } else {
-                $_GET['page'] = 0;
+            } else {
+                $_GET['page'] = 1;
                 $pagenum = 0;             
-             }
-             $offset = $pagenum * $per_page;
+            }
+            if ($pagenum == 0){
+                $offset = $pagenum * $per_page;
+                $pagenum = 1;
+            } else {
+                $offset = ($pagenum * $per_page) - $per_page;
+            }
 
             $sql = "SELECT YEAR(date) as year, number, COUNT(*) AS kiekis, 
             MIN(distance/time*3.6) AS ming, AVG(distance/time*3.6) AS avgg,

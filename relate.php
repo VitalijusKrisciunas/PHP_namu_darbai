@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bendra duomenu baze</title>
+        <title>Dvi lenteles</title>
         <meta charset="UTF-8">
     </head>
     <body>
@@ -36,10 +36,15 @@
             if (isset($_GET['page'])) {
                 $pagenum = $_GET['page'];
             } else {
-                $_GET['page'] = 0;
+                $_GET['page'] = 1;
                 $pagenum = 0;             
             }
-            $offset = $pagenum * $per_page;
+            if ($pagenum == 0){
+                $offset = $pagenum * $per_page;
+                $pagenum = 1;
+            } else {
+                $offset = ($pagenum * $per_page) - $per_page;
+            }
             // formos uzkrovimas
             require_once 'forma.php';
             // išvedame automobilius
@@ -78,5 +83,10 @@
             pagination($per_page, $pagenum, $sql, $conn);
             $conn->close();
         ?>
+        <script>
+            function dis(btn){
+                $(btn).attr('color','blue');
+            }
+        </script>
     </body>
 </html>
