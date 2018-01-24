@@ -104,8 +104,7 @@ class RadarsController extends Controller
      */
     public function destroy($id)
     {
-        dd('cia');
-/*         $radar = Radar::find($id);
+/*      $radar = Radar::find($id);
         $radar->delete($id); */
         //return redirect()->route('radars.index');
 

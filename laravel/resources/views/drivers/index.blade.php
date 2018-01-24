@@ -1,10 +1,12 @@
 @extends('layouts.layout')
 
+@section('header_style')
 <style>
     form {
         display:inline-block;
     }
 </style>
+@endsection
 
 @section('content')
 
@@ -32,5 +34,7 @@
     </tr>
     @endforeach
 </table>
+
+{{ $drivers->links() }}
 
 @endsection

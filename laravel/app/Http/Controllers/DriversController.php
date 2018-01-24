@@ -14,7 +14,7 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::all();
+        $drivers = Driver::orderBy('name', 'desc')->paginate(8);;
         return view('drivers.index', compact('drivers'));
     }
 
@@ -101,7 +101,7 @@ class DriversController extends Controller
     {
         $driver = Driver::where('driver_id', $id)->first();
 
-        $driver->delete($id);
+        $driver->delete();
 
         return redirect('drivers');
     }

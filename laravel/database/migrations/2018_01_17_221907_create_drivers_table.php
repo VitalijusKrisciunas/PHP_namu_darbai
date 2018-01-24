@@ -18,6 +18,7 @@ class CreateDriversTable extends Migration
             $table->string('name');
             $table->string('city');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

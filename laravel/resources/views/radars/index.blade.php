@@ -1,3 +1,7 @@
+@extends('layouts.layout')
+
+@section('content')
+
 <table>
     <tr>
         <td>Data</td>
@@ -16,3 +20,5 @@
     </tr>        
     @endforeach
 </table>
+
+@endsection
