@@ -14,7 +14,13 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::orderBy('name', 'desc')->paginate(8);;
+        $drivers = Driver::orderBy('name', 'desc')->paginate(8);
+
+        // rodo ir softdeletintus
+        //$drivers = Driver::withTrashed()->orderBy('name', 'desc')->paginate(8);
+        
+        // rodo tik softdeletintus
+        //$drivers = Driver::onlyTrashed()->orderBy('name', 'desc')->paginate(8);
         return view('drivers.index', compact('drivers'));
     }
 
@@ -101,7 +107,11 @@ class DriversController extends Controller
     {
         $driver = Driver::where('driver_id', $id)->first();
 
-        $driver->delete();
+        // soft delete
+        //$driver->delete($id);
+
+        // hard delete
+        $driver->forceDelete($id);
 
         return redirect('drivers');
     }
