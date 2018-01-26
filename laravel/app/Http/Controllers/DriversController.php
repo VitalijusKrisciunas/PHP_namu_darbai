@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\DriverRequest;
 use App\Driver;
 
 class DriversController extends Controller
@@ -14,7 +15,7 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::orderBy('name', 'desc')->paginate(8);
+        $drivers = Driver::orderBy('name', 'desc')->paginate(5);
 
         // rodo ir softdeletintus
         //$drivers = Driver::withTrashed()->orderBy('name', 'desc')->paginate(8);
@@ -40,7 +41,7 @@ class DriversController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DriverRequest $request)
     {
         $data = [
             'name'=>$request->name,

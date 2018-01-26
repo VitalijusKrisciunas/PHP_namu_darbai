@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RadarRequest;
 use App\Radar;
+
 
 class RadarsController extends Controller
 {
@@ -14,7 +16,13 @@ class RadarsController extends Controller
      */
     public function index()
     {
-        $radars = Radar::all();
+        $radars = Radar::orderBy('date', 'desc')->paginate(5); 
+ 
+        // rodo ir softdeletintus
+        //$radars = Radar::withTrashed()->orderBy('date', 'desc')->paginate(8);
+        
+        // rodo tik softdeletintus
+        //$radars = Radar::onlyTrashed()->orderBy('date', 'desc')->paginate(8);
 
         return view('radars.index', compact('radars'));
     }
@@ -35,8 +43,9 @@ class RadarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RadarRequest $request)
     {
+        
         $data = [
             'date' => $request->date,
             'number' => $request->number,
@@ -104,9 +113,15 @@ class RadarsController extends Controller
      */
     public function destroy($id)
     {
-/*      $radar = Radar::find($id);
-        $radar->delete($id); */
-        //return redirect()->route('radars.index');
+        $radar = Radar::find($id);
+
+        // soft delete
+        $radar->delete($id);
+
+        // hard delete
+        //$radar = forceDelete($id);
+
+        return redirect()->route('radars.index');
 
     }
 }
