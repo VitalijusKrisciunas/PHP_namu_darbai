@@ -24,12 +24,14 @@
     <tr style="font-weight:700">
         <td>Vardas, Pavarde</td>
         <td>Miestas</td>
+        <td>Adminas</td>
         <td>Veiksmai</td>
     </tr>
     @foreach ($drivers as $driver)
     <tr>
         <td>{{$driver->name}}</td>
         <td>{{$driver->city}}</td>
+        <td>{{$driver->user->name}}</td>
         <td>
             <form action="{{ route('drivers.edit', ['driver' => $driver->driver_id]) }}">
                 {{ csrf_field() }}

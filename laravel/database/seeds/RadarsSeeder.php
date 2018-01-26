@@ -17,6 +17,8 @@ class RadarsSeeder extends Seeder
             'number' => 'BBB888',
             'distance' => 8000,
             'time' => 400,
+            'driver_id' => 1,
+            'user_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
@@ -25,6 +27,8 @@ class RadarsSeeder extends Seeder
             'number' => 'AAA999',
             'distance' => 9000,
             'time' => 500,
+            'driver_id' => 2,
+            'user_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
@@ -33,6 +37,8 @@ class RadarsSeeder extends Seeder
             'number' => 'ABB777',
             'distance' => 7000,
             'time' => 300,
+            'driver_id' => 3,
+            'user_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);

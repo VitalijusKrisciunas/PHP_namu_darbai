@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // Rysys su radarais
+    public function radars(){
+
+        return $this->hasMany(Radar::class);
+    }
+
+    // Rysys su vairuotojais
+    public function drivers(){
+
+        return $this->hasMany(Driver::class);
+    }
 }

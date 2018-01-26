@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\DriverRequest;
 use App\Driver;
+use Illuminate\Support\Facades\Auth;
 
 class DriversController extends Controller
 {
@@ -43,9 +44,16 @@ class DriversController extends Controller
      */
     public function store(DriverRequest $request)
     {
+        if (Auth::check()==true){
+            $user = Auth::user();
+        } else {
+            return redirect('/login');
+        }
+        
         $data = [
             'name'=>$request->name,
             'city'=>$request->city,
+            'user_id' => $user->id
         ];
 
         Driver::create($data);
@@ -88,9 +96,16 @@ class DriversController extends Controller
     {
         $driver = Driver::where('driver_id', $id)->first();
 
+        if (Auth::check()==true){
+            $user = Auth::user();
+        } else {
+            return redirect('/login');
+        }
+
         $data = [
             'name' => $request->name,
-            'city' => $request->city
+            'city' => $request->city,
+            'user_id' => $user->id
         ];
 
         $driver->update($data);

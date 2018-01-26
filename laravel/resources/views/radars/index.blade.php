@@ -27,6 +27,7 @@
         <td>Greitis</td>
         <td>Vairuotojas</td>
         <td>Miestas</td>
+        <td>Adminas</td>
         <td>Veiksmai</td>
     </tr>
 
@@ -37,6 +38,7 @@
         <td>{{ $radar->distance / $radar->time }}</td>
         <td>{{$radar->driver->name}}</td>
         <td>{{$radar->driver->city}}</td>
+        <td>{{$radar->user->name}}</td>
         <td>
         <form action="{{ route('radars.edit', ['radar' => $radar->id]) }}">
                 {{ csrf_field() }}

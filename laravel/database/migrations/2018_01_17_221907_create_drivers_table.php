@@ -17,6 +17,7 @@ class CreateDriversTable extends Migration
             $table->increments('driver_id');
             $table->string('name');
             $table->string('city');
+            $table->integer('user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

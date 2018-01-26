@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RadarRequest;
 use App\Radar;
-
+use Illuminate\Support\Facades\Auth;
+use App\Driver;
 
 class RadarsController extends Controller
 {
@@ -16,6 +17,7 @@ class RadarsController extends Controller
      */
     public function index()
     {
+
         $radars = Radar::orderBy('date', 'desc')->paginate(5); 
  
         // rodo ir softdeletintus
@@ -34,7 +36,9 @@ class RadarsController extends Controller
      */
     public function create()
     {
-        return view('radars.create');
+        $drivers = Driver::all();
+
+        return view('radars.create', compact('drivers'));
     }
 
     /**
@@ -45,12 +49,19 @@ class RadarsController extends Controller
      */
     public function store(RadarRequest $request)
     {
-        
+        if (Auth::check()==true){
+            $user = Auth::user();
+        } else {
+            return redirect('/login');
+        }
+
         $data = [
             'date' => $request->date,
             'number' => $request->number,
             'distance' => $request->distance,
             'time' => $request->time,
+            'driver_id' => $request->driverid,
+            'user_id' => $user->id            
         ];
 
         Radar::create($data);
@@ -93,11 +104,18 @@ class RadarsController extends Controller
     {
         $radar = Radar::find($id);
 
+        if (Auth::check()==true){
+            $user = Auth::user();
+        } else {
+            return redirect('/login');
+        }
+
         $data = [
             'date' => $request->date,
             'number' => $request->number,
             'distance' => $request->distance,
             'time' => $request->time,
+            'user_id' => $user->id
         ];
         
         $radar->update($data);
