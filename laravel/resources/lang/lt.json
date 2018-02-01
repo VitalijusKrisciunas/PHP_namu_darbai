@@ -1,0 +1,9 @@
+{
+    "Name":"Vardas, Pavarde",
+    "City":"Miestas",
+    "User":"Vartotojas",
+    "Action":"Veiksmai",
+    "Update":"Atnaujinti",
+    "Delete":"Trinti",
+    "New record":"Naujas irasas"
+}

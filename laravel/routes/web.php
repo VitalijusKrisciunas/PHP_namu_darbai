@@ -37,16 +37,15 @@ Route::get('radar/{number}', function($number){
 
 }); */
 
-//Route::resource('radars', 'RadarsController');
-Route::get('radars', 'RadarsController@index')->name('radars.index');
+/* Route::get('radars', 'RadarsController@index')->name('radars.index');
 Route::get('radars/create', 'RadarsController@create')->name('radars.create');
 Route::put('radars', 'RadarsController@store')->name('radars.store');
 Route::get('radars/{radar}', 'RadarsController@show');
 Route::get('radars/{radar}/edit', 'RadarsController@edit')->name('radars.edit');
 Route::put('radars/{radar}', 'RadarsController@update')->name('radars.update');
-Route::delete('radars/{radar}', 'RadarsController@destroy')->name('radars.destroy');
+Route::delete('radars/{radar}', 'RadarsController@destroy')->name('radars.destroy'); */
 Route::middleware('auth')->group(function(){
-    Route::get('radars', 'RadarsController@index')->name('radars.index');
+    Route::get('radars', 'RadarsController@index')->middleware('multiLang')->name('radars.index');
     Route::get('radars/create', 'RadarsController@create')->name('radars.create');
     Route::put('radars', 'RadarsController@store')->name('radars.store');
     Route::get('radars/{radar}', 'RadarsController@show');
@@ -54,6 +53,7 @@ Route::middleware('auth')->group(function(){
     Route::put('radars/{radar}', 'RadarsController@update')->name('radars.update');
     Route::delete('radars/{radar}', 'RadarsController@destroy')->name('radars.destroy');
 });
+
 
 //
 // Vairuotoju marsrutai
@@ -73,15 +73,15 @@ Route::get('driver/{id}', function ($id) {
 }); */
 
 //Route::resource('drivers', 'RadarsController');
-Route::get('drivers', 'DriversController@index')->name('drivers.index');
+/* Route::get('drivers', 'DriversController@index')->name('drivers.index');
 Route::get('drivers/create', 'DriversController@create')->name('drivers.create');
 Route::put('drivers', 'DriversController@store')->name('drivers.store');
 Route::get('drivers/{driver}', 'DriversController@show');
 Route::get('drivers/{driver}/edit', 'DriversController@edit')->name('drivers.edit');
 Route::put('drivers/{driver}', 'DriversController@update')->name('drivers.update');
-Route::delete('drivers/{driver}', 'DriversController@destroy')->name('drivers.destroy');
+Route::delete('drivers/{driver}', 'DriversController@destroy')->name('drivers.destroy'); */
 Route::middleware('auth')->group(function(){
-    Route::get('drivers', 'DriversController@index')->name('drivers.index');
+    Route::get('drivers', 'DriversController@index')->middleware('multiLang')->name('drivers.index');
     Route::get('drivers/create', 'DriversController@create')->name('drivers.create');
     Route::put('drivers', 'DriversController@store')->name('drivers.store');
     Route::get('drivers/{driver}', 'DriversController@show');
@@ -110,4 +110,7 @@ Route::get('fuel_station/{id}', function ($id) {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Kalbu perjungimas
+Route::get('language/switch/{language}', 'LanguageController@switch')->name('language.switch');
 

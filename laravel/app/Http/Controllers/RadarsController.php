@@ -7,9 +7,17 @@ use App\Http\Requests\RadarRequest;
 use App\Radar;
 use Illuminate\Support\Facades\Auth;
 use App\Driver;
+use App\Repositories\RadarRepository;
 
 class RadarsController extends Controller
 {
+    protected $radarRepository;
+
+    public function __construct(RadarRepository $radarRepository)
+    {
+        $this->radarRepository = $radarRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +26,9 @@ class RadarsController extends Controller
     public function index()
     {
 
-        $radars = Radar::orderBy('date', 'desc')->paginate(5); 
- 
+        //$radars = Radar::orderBy('date', 'desc')->paginate(5);
+        $radars = $this->radarRepository->getAll(5); 
+
         // rodo ir softdeletintus
         //$radars = Radar::withTrashed()->orderBy('date', 'desc')->paginate(8);
         
@@ -64,7 +73,7 @@ class RadarsController extends Controller
             'user_id' => $user->id            
         ];
 
-        Radar::create($data);
+        $this->radarRepository->create($data);
 
         return redirect()->route('radars.index');
     }
@@ -88,7 +97,7 @@ class RadarsController extends Controller
      */
     public function edit($id)
     {
-        $radar = Radar::find($id);
+        $radar = $this->radarRepository->findById($id);
 
         return view('radars.edit', compact('radar'));
     }
@@ -102,7 +111,7 @@ class RadarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $radar = Radar::find($id);
+        //$radar = $this->radarRepository->findById($id);
 
         if (Auth::check()==true){
             $user = Auth::user();
@@ -118,7 +127,7 @@ class RadarsController extends Controller
             'user_id' => $user->id
         ];
         
-        $radar->update($data);
+        $this->radarRepository->update($id, $data);
 
         return redirect()->route('radars.index');
     }
@@ -131,10 +140,10 @@ class RadarsController extends Controller
      */
     public function destroy($id)
     {
-        $radar = Radar::find($id);
+        //$radar = $this->radarRepository->findById($id);
 
         // soft delete
-        $radar->delete($id);
+        $this->radarRepository->delete($id);
 
         // hard delete
         //$radar = forceDelete($id);

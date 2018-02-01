@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests\DriverRequest;
 use App\Driver;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\DriverRepository;
 
 class DriversController extends Controller
 {
+    protected $driverRepository;
+
+    public function __construct(DriverRepository $driverRepository)
+    {
+        $this->driverRepository = $driverRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,9 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::orderBy('name', 'desc')->paginate(5);
+
+        $drivers = $this->driverRepository->getAll(5);
+        //$drivers = Driver::orderBy('name', 'desc')->paginate(5);
 
         // rodo ir softdeletintus
         //$drivers = Driver::withTrashed()->orderBy('name', 'desc')->paginate(8);
@@ -56,7 +66,7 @@ class DriversController extends Controller
             'user_id' => $user->id
         ];
 
-        Driver::create($data);
+        $this->driverRepository->create($data);
 
         return redirect('drivers');
     }
@@ -80,7 +90,8 @@ class DriversController extends Controller
      */
     public function edit($id)
     {
-        $driver = Driver::where('driver_id', $id)->first();
+        //$driver = Driver::where('driver_id', $id)->first();
+        $driver = $this->driverRepository->findById($id);
         
         return view('drivers.edit', compact('driver'));
     }
@@ -94,7 +105,6 @@ class DriversController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $driver = Driver::where('driver_id', $id)->first();
 
         if (Auth::check()==true){
             $user = Auth::user();
@@ -108,7 +118,7 @@ class DriversController extends Controller
             'user_id' => $user->id
         ];
 
-        $driver->update($data);
+        $this->driverRepository->update($id, $data);
 
         return redirect('drivers');
     }
@@ -121,13 +131,12 @@ class DriversController extends Controller
      */
     public function destroy($id)
     {
-        $driver = Driver::where('driver_id', $id)->first();
 
         // soft delete
-        //$driver->delete($id);
+        $this->driverRepository->delete($id);
 
         // hard delete
-        $driver->forceDelete($id);
+        //$driver->forceDelete($id);
 
         return redirect('drivers');
     }
